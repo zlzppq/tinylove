@@ -1,4 +1,4 @@
-﻿var board = new Array();
+var board = new Array();
 var flag = new Array();
 var score = 0;
 
@@ -11,7 +11,7 @@ var endY = 0;
 $(document).ready(function () {
     prepareForMobile();
     newgame();
-})
+});
 
 function prepareForMobile() {
 
@@ -59,6 +59,8 @@ function init()
     }
         
     updateBoard();
+    score = 0;
+    $("#score").text(score);
 }
 
 function updateBoard()
@@ -172,37 +174,35 @@ document.addEventListener("touchend", function (event) {
 
     var deltaX = endX - startX;
     var deltaY = endY - startY;
+    
+    if (Math.abs(deltaX) >= 10 || Math.abs(deltaY) >= 10) {
+        if (Math.abs(deltaX) >= Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                if (moveRight()) {
+                    setTimeout("createOneNum()", 210);
+                    setTimeout("isGameover()", 300);
+                }
+            }
+            else {
+                if (moveLeft()) {
+                    setTimeout("createOneNum()", 210);
+                    setTimeout("isGameover()", 300);
+                }
+            }
 
-    if(Math.abs(deltaX)>=Math.abs(deltaY))
-    {
-        if(deltaX>0)
-        {
-            if (moveRight()) {
-                setTimeout("createOneNum()", 210);
-                setTimeout("isGameover()", 300);
-            }
-        }
-        else
-        {
-            if (moveLeft()) {
-                setTimeout("createOneNum()", 210);
-                setTimeout("isGameover()", 300);
-            }
-        }
-
-    }
-    else
-    {
-        if (deltaY > 0) {
-            if (moveDown()) {
-                setTimeout("createOneNum()", 210);
-                setTimeout("isGameover()", 300);
-            }
         }
         else {
-            if (moveUp()) {
-                setTimeout("createOneNum()", 210);
-                setTimeout("isGameover()", 300);
+            if (deltaY > 0) {
+                if (moveDown()) {
+                    setTimeout("createOneNum()", 210);
+                    setTimeout("isGameover()", 300);
+                }
+            }
+            else {
+                if (moveUp()) {
+                    setTimeout("createOneNum()", 210);
+                    setTimeout("isGameover()", 300);
+                }
             }
         }
     }
